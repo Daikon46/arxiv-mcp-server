@@ -421,6 +421,17 @@ The server provides seven MCP prompt workflows. Prompt availability depends on t
 
 For deployments where stdio is not practical:
 
+To run this checkout in Docker for a local Codex client:
+
+```bash
+docker compose up -d --build
+docker compose ps
+```
+
+The Compose service listens at `http://127.0.0.1:8000/mcp` on the host, checks `http://127.0.0.1:8000/healthz`, and mounts `~/.arxiv-mcp-server/papers` so downloaded papers and watches survive container replacement. After changing source code, run `docker compose up -d --build` again and restart the MCP client to refresh its tool catalog. The host binding is loopback only; the HTTP endpoint does not provide authentication.
+
+For a direct process instead of Docker:
+
 ```bash
 TRANSPORT=http HOST=127.0.0.1 PORT=8080 \
   uvx arxiv-mcp-server --storage-path /absolute/path/to/papers
@@ -512,4 +523,3 @@ Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before openin
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE).
-
