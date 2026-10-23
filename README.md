@@ -417,20 +417,9 @@ The server provides seven MCP prompt workflows. Prompt availability depends on t
 | `literature-synthesis` | `paper_ids` | Synthesize themes, methods, timelines, or gaps across papers |
 | `research-question` | `paper_ids`, `topic` | Formulate grounded, falsifiable research questions |
 
-## Streamable HTTP
+## Streamable HTTP (optional)
 
-For deployments where stdio is not practical:
-
-To run this checkout in Docker for a local Codex client:
-
-```bash
-docker compose up -d --build
-docker compose ps
-```
-
-The Compose service listens at `http://127.0.0.1:8000/mcp` on the host, checks `http://127.0.0.1:8000/healthz`, and mounts `~/.arxiv-mcp-server/papers` so downloaded papers and watches survive container replacement. After changing source code, run `docker compose up -d --build` again and restart the MCP client to refresh its tool catalog. The host binding is loopback only; the HTTP endpoint does not provide authentication.
-
-For a direct process instead of Docker:
+For deployments where stdio is not practical, run the server directly as a local process:
 
 ```bash
 TRANSPORT=http HOST=127.0.0.1 PORT=8080 \
